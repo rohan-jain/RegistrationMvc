@@ -9,8 +9,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import dbconfig.DBConfig;
+import email.Email;
 import model.Organization;
 import model.User;
 
@@ -33,7 +35,7 @@ public class UserController {
 	
 	@RequestMapping("/login")
 	public String getLoginPage(ModelMap map) {
-		map.addAttribute("user",new UserController());
+		map.addAttribute("user",new User());
 		return "login";
 	}
 	
@@ -52,6 +54,16 @@ public class UserController {
 	public String getOrganizationPage(ModelMap map) {
 		map.addAttribute("organization",new Organization());
 		return "addorganization";
+	}
+	
+	@RequestMapping("/UserDetailsController")
+	public String getUserDetailsPage(ModelMap map) throws Exception {
+
+		Session session = DBConfig.getSession();
+		List<User> users=session.createQuery("from model.User ").getResultList();
+		map.addAttribute("user",new User());
+		map.addAttribute("users",users);
+		return "userdetails";
 	}
 
 
@@ -75,6 +87,8 @@ public class UserController {
 			System.out.println(user.getOrganization().getOrganizationID());
 			user.setRole("user");
 			session.save(user);
+			Email email=new Email(user.getEmail(), "Registered Successfully!!!", "Welcome to Spring !!!");
+			email.sendEmail();
 			transaction.commit();
 		}
 		catch (Exception e)
@@ -102,4 +116,15 @@ public class UserController {
 		}
 	}
 
+	@RequestMapping("/deletecontroller")
+	public String deleteController(@RequestParam("userid") int userid) throws Exception {
+
+		Session session = DBConfig.getSession();
+		Transaction transaction = session.beginTransaction();
+		User user=new User();
+		user.setUserid(userid);
+		session.delete(user);
+		transaction.commit();
+		return "redirect:/UserDetailsController";
+	}
 }

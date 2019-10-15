@@ -7,6 +7,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-welcome page
+welcome user
+<a href="UserDetailsController">Click here to see user details</a>
 </body>
 </html>

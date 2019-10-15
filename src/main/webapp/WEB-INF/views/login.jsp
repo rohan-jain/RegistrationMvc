@@ -11,8 +11,8 @@
 		<td><spring:input path="username"/></td>
 	</tr>
 	<tr>
-		<td>Enter email</td>	
-		<td><spring:input path="password"/></td>
+		<td>Enter Password</td>	
+		<td><spring:password path="password"/></td>
 	</tr>
 		
 	<tr>
