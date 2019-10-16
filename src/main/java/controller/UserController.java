@@ -2,6 +2,9 @@ package controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
@@ -38,6 +41,39 @@ public class UserController {
 		map.addAttribute("user",new User());
 		return "login";
 	}
+	
+	@RequestMapping("/emailController")
+	public String sendEmailToUser(@RequestParam("emailId") String emailId, ModelMap map) throws Exception {
+		
+
+		
+		Session session = DBConfig.getSession();
+		Query query=session.createQuery("from model.User where email=: email");
+		query.setParameter("email", emailId);
+		
+		if(!query.getResultList().isEmpty())
+		{	
+			System.out.println("email id in list");
+			String password = ((User)query.getResultList().get(0)).getPassword();
+			
+			System.out.println("email is" + emailId);
+			Email email=new Email(emailId, "Your password reset successfully", "Your password is " + password);
+			email.sendEmail();
+			
+			map.addAttribute("user",new User());
+			return "login";
+		}
+		else
+		{
+			return "emailReset";
+		}
+		
+//		
+//		
+//  		map.addAttribute("user",new User());
+//		return "login";
+	}
+	
 	
 	@RequestMapping("/welcome")
 	public String getWelcomePage(ModelMap map) {
@@ -117,9 +153,14 @@ public class UserController {
 		}
 		else
 		{
-			return "redirect:/error";
+			return "emailReset";
 		}
 	}
+	
+	
+	
+	
+	
 
 	@RequestMapping("/deletecontroller")
 	public String deleteController(@RequestParam("userid") int userid) throws Exception {
@@ -148,5 +189,8 @@ public class UserController {
 		transaction.commit();
 		return "redirect:/UserDetailsController";
 	}
+	
+	
+	
 
 }

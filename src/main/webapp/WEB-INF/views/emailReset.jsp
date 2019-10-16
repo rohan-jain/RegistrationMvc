@@ -11,6 +11,22 @@
 <title>Insert title here</title>
 </head>
 <body>
-welcome to homepage
+send password to email id
+
+	<form action="emailController" id="form" method="POST">
+		<table>
+		<tr>
+			<td>
+				Email Id : <input type="text" name="emailId"/>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<input type="submit" value="Submit"/>
+			</td>
+		</tr>
+	</table>
+</form>
+
 </body>
 </html>
