@@ -106,8 +106,13 @@ public class UserController {
 		Query query=session.createQuery("from model.User where username= :user and password=: pass");
 		query.setParameter("user", user.getUsername());
 		query.setParameter("pass", user.getPassword());
+		
 		if(!query.getResultList().isEmpty())
-		{
+		{	
+			System.out.println("in list not empty");
+			if(((User)query.getResultList().get(0)).getRole().equals("admin")) {
+				return "redirect:/UserDetailsController";
+			}
 			return "redirect:/welcome";
 		}
 		else
@@ -127,4 +132,21 @@ public class UserController {
 		transaction.commit();
 		return "redirect:/UserDetailsController";
 	}
+	
+
+	@RequestMapping("/updatecontroller")
+	public String updateController(@RequestParam("userid") int userid,@RequestParam("username") String username,@RequestParam("email") String email,@RequestParam("mobileno") String mobileno) throws Exception {
+
+		Session session = DBConfig.getSession();
+		Transaction transaction = session.beginTransaction();
+		User user=new User();
+		user.setUserid(userid);
+		user.setUsername(username);
+		user.setEmail(email);
+		user.setMobileno(mobileno);
+		session.update(user);
+		transaction.commit();
+		return "redirect:/UserDetailsController";
+	}
+
 }

@@ -7,6 +7,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-welcome user
+error page 2 kindia address welcome admin
+<a href="UserDetailsController">Click here to see user details</a>
 </body>
 </html>
