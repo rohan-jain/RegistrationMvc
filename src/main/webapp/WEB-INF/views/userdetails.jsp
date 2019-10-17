@@ -10,7 +10,9 @@
   function myFunction(clickedId)
   {
     	 document.getElementById(clickedId).contentEditable='true';
-         document.getElementById(clickedId).style.backgroundColor="green";
+         document.getElementById(clickedId).style.backgroundColor="#b3ffcc";
+         document.getElementById(clickedId).style.color="black";
+         document.getElementById(clickedId).style.border="2px solid black";
   }
   
 
@@ -42,16 +44,22 @@
 	  form.submit();
 	}
 </script>
-<meta charset="UTF-8">
+<style type="text/css">
+.table
+{	
+	font-family: 'Varela Round', sans-serif;
+}
+</style>
 <title>Insert title here</title>
 </head>
 <body bgcolor="">
-<jsp:include page="Headers.jsp"></jsp:include>
-	<h3>Hell 00-00 dd tes tt</h3>
-	<center>
+
+<jsp:include page="Headers.jsp"></jsp:include>	
+	<div class="container">
+	
 		<c:if test="${u.role=='admin'}" >
-		<table class="table">
-			<tr>
+		<table class="table table-striped table-bordered ">
+			<tr>	
 				<th>Userid</th>
 				<th>Username</th>
 				<th>Email</th>
@@ -72,7 +80,9 @@
 					<td id="organizationId${user.userid}">${user.organization.organizationID}</td>
 					<td id="organizationName${user.userid}">${user.organization.organizationName}</td>
 
-					<td> <button onclick="myPost(${user.userid})" class="btn btn-primary">Sumbit Details</button> <button onclick="myFunction(${user.userid})" class="btn btn-danger">Edit Details</button>| <a href="deletecontroller?userid=${user.userid}" class="btn btn-secondary">Delete</a>
+					<td> <button onclick="myPost(${user.userid})"  class="btn" style="background:#19aa8d;color:white"><i class="fa fa-send"></i></button>
+					<button onclick="myFunction(${user.userid})" class="btn btn-primary"><i class="fa fa-edit"></i></button>
+					<a href="deletecontroller?userid=${user.userid}" class="btn btn-danger"><i class="fa fa-trash"></i></a>
 					
 				</tr>
 			</c:forEach>
@@ -81,6 +91,7 @@
 		<c:if test="${u.role=='user'}" >
 			welcome user
 		</c:if>
-	</center>
+	</div>
+
 </body>
 </html>

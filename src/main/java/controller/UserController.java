@@ -34,7 +34,7 @@ public class UserController {
 		Session session = DBConfig.getSession();
 		List<Organization> organizations=session.createQuery("from model.Organization").list();
 		map.addAttribute("organizations",organizations);
-		return "registration";
+		return "registrationPretty";
 	}
 	
 //	@RequestMapping("/login")
@@ -135,7 +135,7 @@ public class UserController {
 	}
 
 	@RequestMapping("/registrationController")
-	public String registrationControllerPage(@ModelAttribute("user") User user) throws Exception {
+	public String registrationControllerPage(@ModelAttribute("user") User user, HttpSession httpSession) throws Exception {
 
 		Session session = DBConfig.getSession();
 		Transaction transaction = session.beginTransaction();
@@ -148,15 +148,35 @@ public class UserController {
 			Email email=new Email(user.getEmail(), "Registered Successfully!!!", "Welcome to Spring !!!");
 			email.sendEmail();
 			transaction.commit();
+			httpSession.setAttribute("msg", "Registered Successfully");
+			httpSession.setAttribute("pagename", "loginPretty");
+			httpSession.setAttribute("type", "success");
+			return "popup";
 		}
 		catch (Exception e)
 		{
 			transaction.rollback();
 			System.out.println(e);
+			httpSession.setAttribute("msg", e.getMessage());
+			httpSession.setAttribute("pagename", "register");
+			httpSession.setAttribute("type", "success");
+			return "popup";
+			
 		}
-		return "login";
-	}
+//		return "loginPretty";
+	
 
+	}
+	
+	
+	@RequestMapping("/logout")
+	public String getLoginPagePretty(ModelMap map, HttpSession httpSession) {
+		httpSession.invalidate();
+		map.addAttribute("user",new User());
+		return "loginPretty";
+	}
+	
+	
 	@RequestMapping("/loginController")
 	public String loginControllerPage(@ModelAttribute("user") User user, HttpSession httpSession, ModelMap map) throws Exception {
 
@@ -172,17 +192,25 @@ public class UserController {
 			User u = (User)q.getResultList().get(0);
 			
 			httpSession.setAttribute("u", u);
-			httpSession.setMaxInactiveInterval(15);
+			httpSession.setMaxInactiveInterval(60*3);
 			System.out.println(u.getRole());
 			System.out.println("test");
 			System.out.println("in list not empty");
-			return "redirect:/UserDetailsController";
+//			return "redirect:/UserDetailsController";
+			httpSession.setAttribute("msg", "Welcome " + u.getUsername());
+			httpSession.setAttribute("pagename", "UserDetailsController");
+			httpSession.setAttribute("type", "success");
+			return "popup";
 			
 		}
 		else
 		{	
-			map.addAttribute("isInvalidLogin", true);
-			return "loginPretty";
+//			map.addAttribute("isInvalidLogin", true);
+			httpSession.setAttribute("msg", "Username or password is incorrect");
+			httpSession.setAttribute("pagename", "loginPretty");
+			httpSession.setAttribute("type", "error");
+//			return "loginPretty";
+			return "popup";
 		}
 	}
 
@@ -207,7 +235,7 @@ public class UserController {
 		      @RequestParam("email") String email,
 		      @RequestParam("mobileno") String mobileno,
 		      @RequestParam("address") String address,
-		      @RequestParam("organizationId") String organizationId,
+		      @RequestParam("organizationId") String organizationId, HttpSession httpSession,
 			ModelMap map) throws Exception {
 		
 		System.out.println("userid is " + userid + " and username is " + username);
@@ -254,12 +282,16 @@ public class UserController {
 //		Session session = DBConfig.getSession();
 //		List<User> users=session.createQuery("from model.User ").getResultList();
 		map.addAttribute("user",new User());
-		return "redirect:/UserDetailsController";
-	}
+		httpSession.setAttribute("msg", "Data Updated Successfully!!!");
+		httpSession.setAttribute("pagename", "UserDetailsController");
+		httpSession.setAttribute("type", "success");
+//		return "loginPretty";
+		return "popup";
+		}
 	
 
 	@RequestMapping("/updatecontroller")
-	public String updateController(@RequestParam("userid") int userid,@RequestParam("username") String username,@RequestParam("email") String email,@RequestParam("mobileno") String mobileno) throws Exception {
+	public String updateController(@RequestParam("userid") int userid,@RequestParam("username") String username,@RequestParam("email") String email,@RequestParam("mobileno") String mobileno, HttpSession httpSession) throws Exception {
 		
 
 		Session session = DBConfig.getSession();
@@ -271,7 +303,12 @@ public class UserController {
 		user.setMobileno(mobileno);
 		session.update(user);
 		transaction.commit();
-		return "redirect:/UserDetailsController";
+		
+		httpSession.setAttribute("msg", "Data Updated Successfully!!!");
+		httpSession.setAttribute("pagename", "UserDetailsController");
+		httpSession.setAttribute("type", "success");
+//		return "loginPretty";
+		return "popup";
 	}
 	
 	

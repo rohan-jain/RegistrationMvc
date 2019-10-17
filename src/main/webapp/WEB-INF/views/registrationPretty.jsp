@@ -7,8 +7,15 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Bootstrap Flat Modal Login Modal Form</title>
+<link href="https://fonts.googleapis.com/css?family=Roboto|Varela+Round" rel="stylesheet">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 
-<jsp:include page="Headers.jsp"></jsp:include>
+<!--
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+ -->
+ <jsp:include page="Headers.jsp"></jsp:include>
 <style type="text/css">
     body {
 		font-family: 'Varela Round', sans-serif;
@@ -121,29 +128,65 @@
 </head>
 
 <body>
+
 <div class="modal-dialog modal-login">
 	<div class="modal-content">
 		<div class="modal-header">				
-			<h4 class="modal-title">Get Password on Email</h4>
+			<h4 class="modal-title">Register New User</h4>
 		</div>
 		<div class="modal-body">
-			<spring:form action="emailController" id="form" method="POST">
+			<spring:form action="registrationController" modelAttribute="user">
 			
 				<div class="form-group">
 					<div class="input-group">
-						<span class="input-group-addon"><i class="fa fa-envelope"></i></span>
-						<input type="text" name="emailId" class="form-control" placeholder="Email Id" required="required"/>
+						<span class="input-group-addon"><i class="fa fa-user"></i></span>
+						<spring:input           type="text" path="username" class="form-control" placeholder="Username" required="required"/>
 					</div>
 				</div>
 				
 				<div class="form-group">
-					<button type="submit" class="btn btn-primary btn-block btn-lg">Get Password</button>
+					<div class="input-group">
+						<span class="input-group-addon"><i class="fa fa-lock"></i></span>
+						<spring:input           type="text" class="form-control" path="password" placeholder="Password" required="required"/>
+					</div>
+				</div>
+
+				<div class="form-group">
+					<div class="input-group">
+						<span class="input-group-addon"><i class="fa fa-user"></i></span>
+						<spring:input           type="text" path="email" class="form-control" placeholder="EmailId" required="required"/>
+					</div>
 				</div>
 				
+				<div class="form-group">
+					<div class="input-group">
+						<span class="input-group-addon"><i class="fa fa-user"></i></span>
+						<spring:input           type="text" path="address" class="form-control" placeholder="Address" required="required"/>
+					</div>
+				</div>
+				
+				<div class="form-group">
+					<div class="input-group">
+						<span class="input-group-addon"><i class="fa fa-user"></i></span>
+						<spring:input           type="text" path="mobileno" class="form-control" placeholder="Mobile No" required="required"/>
+					</div>
+				</div>
+				
+				<div class="form-group">
+					<div class="input-group">
+						<span class="input-group-addon"><i class="fa fa-user"></i></span>
+						<spring:input           type="text" path="organization.organizationID" class="form-control" placeholder="Organization Id" required="required"/>
+					</div>
+				</div>
+				
+				<div class="form-group">
+					<button type="submit" class="btn btn-primary btn-block btn-lg">Register User</button>
+				</div>
 			</spring:form>
 		</div>
 		
 	</div>
 </div>
+<h2>test23  run</h2>
 </body>
 </html>                   
