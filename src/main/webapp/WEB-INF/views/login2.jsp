@@ -1,8 +1,16 @@
 <%@taglib prefix="spring" uri="http://www.springframework.org/tags/form" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<!DOCTYPE html>
-<html lang="en">
+
+<html>
 <head>
+
+<style>
+.myForm
+{
+	margin:0 auto;
+}
+</style>
+
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -122,48 +130,39 @@
 	}
 </style>
 </head>
-
-<c:if test="${not empty isInvalidLogin}">
-	<script type="text/javascript">
-	function showAlertIfLoginInvalid() {
-	    if(${isInvalidLogin}) {
-	    	alert('Login credentials invalid, click \"Forgot Password\" if username/password lost');
-	    }
-	    
-	}
-	window.onload = showAlertIfLoginInvalid();
-	</script>
-</c:if>
-
-
 <body>
-<div class="modal-dialog modal-login">
+<div class="modal-dialog modal-login">	
 	<div class="modal-content">
 		<div class="modal-header">				
 			<h4 class="modal-title">Sign In</h4>
 		</div>
-		<div class="modal-body">
+		<div class="modal-body">	
 			<spring:form action="loginController" modelAttribute="user">
 				<div class="form-group">
 					<div class="input-group">
-						<span class="input-group-addon"><i class="fa fa-user"></i></span>
-						<spring:input           type="text" path="username" class="form-control" placeholder="Username" required="required"/>
+						<span class="input-group-addon"><i class="fa fa-user"></i></span>	
+						<spring:input                path="username" class="form-control" placeholder="Username" required="required"/>
 					</div>
 				</div>
 				<div class="form-group">
 					<div class="input-group">
 						<span class="input-group-addon"><i class="fa fa-lock"></i></span>
-						<spring:input           type="text" class="form-control" path="password" placeholder="Password" required="required"/>
+						<spring:password             path="password" class="form-control" placeholder="Password" required="required"/>
 					</div>
 				</div>
 				<div class="form-group">
-					<button type="submit" class="btn btn-primary btn-block btn-lg">Sign In</button>
+					<input type = "submit" value="Login" class="btn btn-primary btn-block">	
 				</div>
-				<p class="hint-text"><a href="forgotPassword">Forgot Password?</a></p>
+				
+				<a href="forgotPassword">Forgot password?</a>
+			
 			</spring:form>
 		</div>
-		<div class="modal-footer">Don't have an account? <a href="#">Create one</a></div>
 	</div>
+	
+	
 </div>
+
+<h2>test if in login2 again</h2>
 </body>
-</html>                   
+</html>

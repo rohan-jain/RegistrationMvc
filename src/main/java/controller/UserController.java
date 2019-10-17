@@ -37,10 +37,22 @@ public class UserController {
 		return "registration";
 	}
 	
-	@RequestMapping("/login")
-	public String getLoginPage(ModelMap map) {
+//	@RequestMapping("/login")
+//	public String getLoginPage(ModelMap map) {
+//		map.addAttribute("user",new User());
+//		return "login";
+//	}
+//	
+//	@RequestMapping("/login2")
+//	public String getLoginPage2(ModelMap map) {
+//		map.addAttribute("user",new User());
+//		return "login2";
+//	}
+	
+	@RequestMapping("/loginPretty")
+	public String getLoginPagePretty(ModelMap map) {
 		map.addAttribute("user",new User());
-		return "login";
+		return "loginPretty";
 	}
 	
 	@RequestMapping("/emailController")
@@ -80,11 +92,7 @@ public class UserController {
 	public String getWelcomePage(ModelMap map) {
 		return "welcome";
 	}
-	
-	@RequestMapping("/loginPretty")
-	public String getLoginPretty(ModelMap map) {
-		return "loginPretty";
-	}
+
 	
 	
 	@RequestMapping("/forgotPassword")
@@ -174,7 +182,7 @@ public class UserController {
 		else
 		{	
 			map.addAttribute("isInvalidLogin", true);
-			return "login";
+			return "loginPretty";
 		}
 	}
 
