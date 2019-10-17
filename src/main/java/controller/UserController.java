@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.hibernate.Query;
 import org.hibernate.Session;
@@ -80,6 +81,17 @@ public class UserController {
 		return "welcome";
 	}
 	
+	@RequestMapping("/loginPretty")
+	public String getLoginPretty(ModelMap map) {
+		return "loginPretty";
+	}
+	
+	
+	@RequestMapping("/forgotPassword")
+	public String getResetPasswordFromEmailPage(ModelMap map) {
+		return "emailPasswordForgotForm";
+	}
+	
 
 	@RequestMapping("/error")
 	public String getErrorPage(ModelMap map) {
@@ -93,7 +105,7 @@ public class UserController {
 	}
 	
 	@RequestMapping("/UserDetailsController")
-	public String getUserDetailsPage(ModelMap map) throws Exception {
+	private String getUserDetailsPage(ModelMap map) throws Exception {
 
 		Session session = DBConfig.getSession();
 		List<User> users=session.createQuery("from model.User ").getResultList();
@@ -101,6 +113,8 @@ public class UserController {
 		map.addAttribute("users",users);
 		return "userdetails";
 	}
+	
+
 
 
 	@RequestMapping("/organizatiocontroller")
@@ -119,7 +133,7 @@ public class UserController {
 		Transaction transaction = session.beginTransaction();
 		try
 		{
-			System.out.println("s ddfdsfds");
+//			System.out.println("s ddfdsfds");
 			System.out.println(user.getOrganization().getOrganizationID());
 			user.setRole("user");
 			session.save(user);
@@ -136,7 +150,7 @@ public class UserController {
 	}
 
 	@RequestMapping("/loginController")
-	public String loginControllerPage(@ModelAttribute("user") User user) throws Exception {
+	public String loginControllerPage(@ModelAttribute("user") User user, HttpSession httpSession, ModelMap map) throws Exception {
 
 		Session session = DBConfig.getSession();
 		Query query=session.createQuery("from model.User where username= :user and password=: pass");
@@ -145,22 +159,25 @@ public class UserController {
 		
 		if(!query.getResultList().isEmpty())
 		{	
+			Query q = session.createQuery("from model.User where username= :user");
+			q.setParameter("user", user.getUsername());
+			User u = (User)q.getResultList().get(0);
+			
+			httpSession.setAttribute("u", u);
+			httpSession.setMaxInactiveInterval(15);
+			System.out.println(u.getRole());
+			System.out.println("test");
 			System.out.println("in list not empty");
-			if(((User)query.getResultList().get(0)).getRole().equals("admin")) {
-				return "redirect:/UserDetailsController";
-			}
-			return "redirect:/welcome";
+			return "redirect:/UserDetailsController";
+			
 		}
 		else
-		{
-			return "emailReset";
+		{	
+			map.addAttribute("isInvalidLogin", true);
+			return "login";
 		}
 	}
-	
-	
-	
-	
-	
+
 
 	@RequestMapping("/deletecontroller")
 	public String deleteController(@RequestParam("userid") int userid) throws Exception {
@@ -174,9 +191,68 @@ public class UserController {
 		return "redirect:/UserDetailsController";
 	}
 	
+	
+	@RequestMapping("/updateUserController")
+	public String updateUser(
+		      @RequestParam("userid") String userid,
+		      @RequestParam("username") String username,
+		      @RequestParam("email") String email,
+		      @RequestParam("mobileno") String mobileno,
+		      @RequestParam("address") String address,
+		      @RequestParam("organizationId") String organizationId,
+			ModelMap map) throws Exception {
+		
+		System.out.println("userid is " + userid + " and username is " + username);
+		
+		
+		Session session = DBConfig.getSession();
+		Transaction transaction = session.beginTransaction();
+		User user=new User();
+		user.setUserid(18);
+		user.setUsername(username);
+		user.setEmail(email);
+		user.setMobileno(mobileno);
+		user.setAddress(address);
+		Organization org = new Organization();
+		org.setOrganizationID(Integer.parseInt(organizationId));
+		user.setOrganization(org);
+//		user.setAddress("kindia");
+//		user.setEmail("k@gmail.com");
+		session.update(user);
+		transaction.commit();
+//		
+		
+//		Session session = DBConfig.getSession();
+//		Transaction transaction = session.beginTransaction();
+//		Query query=session.createQuery("update model.User set username=: username where userid = :userid");
+//		query.setParameter("userid", userid);
+//		transaction.commit();
+//		int result = query.executeUpdate();
+//		System.out.println(result);
+		
+//		Transaction transaction = session.beginTransaction();
+//		User user=new User();
+//		user.setUserid(userid);
+//		session.delete(user);
+//		transaction.commit();
+//		
+//		Query query = session.createQuery("update Stock set stockName = :stockName" +
+//				" where stockCode = :stockCode");
+//		query.setParameter("stockName", "DIALOG1");
+//		query.setParameter("stockCode", "7277");
+//		
+//		
+		System.out.println("editing user");
+//		Session session = DBConfig.getSession();
+//		List<User> users=session.createQuery("from model.User ").getResultList();
+		map.addAttribute("user",new User());
+		return "redirect:/UserDetailsController";
+	}
+	
 
 	@RequestMapping("/updatecontroller")
 	public String updateController(@RequestParam("userid") int userid,@RequestParam("username") String username,@RequestParam("email") String email,@RequestParam("mobileno") String mobileno) throws Exception {
+		
 
 		Session session = DBConfig.getSession();
 		Transaction transaction = session.beginTransaction();

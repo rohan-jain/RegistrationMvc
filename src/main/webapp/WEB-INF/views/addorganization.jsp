@@ -3,6 +3,7 @@
 
 <html>
 <body>
+<jsp:include page="Headers.jsp"></jsp:include>
 <spring:form action="organizatiocontroller" modelAttribute="organization">
 	<table>
 	<tr>

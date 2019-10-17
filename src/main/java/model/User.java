@@ -8,7 +8,10 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.DynamicUpdate;
+
 @Entity
+@DynamicUpdate
 @Table(name="users")
 public class User {
 	
@@ -21,7 +24,7 @@ public class User {
 	private String address;
 	private String mobileno;
 	private String password;
-	private String role;	
+	private String role;
 	
 	@ManyToOne
 	private Organization organization;

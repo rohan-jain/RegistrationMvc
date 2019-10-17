@@ -2,24 +2,53 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <html>
-<body>
+<head>
 
-<spring:form action="loginController" modelAttribute="user">
-	<table>
-	<tr>
-		<td>Enter username</td>	
-		<td><spring:input path="username"/></td>
-	</tr>
-	<tr>
-		<td>Enter Password</td>	
-		<td><spring:password path="password"/></td>
-	</tr>
+<c:if test="${not empty isInvalidLogin}">
+	<script type="text/javascript">
+	function showAlertIfLoginInvalid() {
+	    if(${isInvalidLogin}) {
+	    	alert('Login credentials invalid, click \"Forgot Password\" if username/password lost');
+	    }
+	    
+	}
+	window.onload = showAlertIfLoginInvalid();
+	</script>
+</c:if>
+
+<style>
+.myForm
+{
+	margin:0 auto;
+}
+</style>
+</head>
+<body>
+<jsp:include page="Headers.jsp"></jsp:include>
+
+
+	<div class="container">
+<spring:form action="loginController" modelAttribute="user" class="col-lg-6 col-md-6 col-sm-12 col-xs-12 myForm">
+
+		<h2> login</h2>
 		
-	<tr>
-		<td><input type = "submit" value="Login"></td>	
-		<td><input type = "reset" value="reset"></td>
-	</tr>
-</table>
-</spring:form>
+		<div class="form-group">
+			<label>Enter username</label>	
+			<spring:input path="username" class="form-control"/>
+		</div>
+		<div class="form-group">
+			<label>Enter Password</label>	
+			<spring:password path="password" class="form-control"/>
+		</div>
+		<a href="forgotPassword">Forgot password?</a>
+		<djv>
+			<input type = "submit" value="Login" class="btn btn-primary btn-block">	
+			<input type = "reset" value="reset"class="btn btn-secondary btn-block">
+		</div>
+		
+		</spring:form>
+		
+</div>
+
 </body>
 </html>

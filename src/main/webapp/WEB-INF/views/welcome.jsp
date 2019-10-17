@@ -11,6 +11,7 @@
 <title>Insert title here</title>
 </head>
 <body>
+<jsp:include page="Headers.jsp"></jsp:include>
 welcome to homepage
 </body>
 </html>
