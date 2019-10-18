@@ -40,7 +40,7 @@ public class ApplicationController {
 			email.sendEmail();
 			
 			map.addAttribute("user",new User());
-			return "login";
+			return "loginPretty";
 		}
 		else
 		{

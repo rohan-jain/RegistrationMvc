@@ -147,7 +147,7 @@
 				<div class="form-group">
 					<div class="input-group">
 						<span class="input-group-addon"><i class="fa fa-lock"></i></span>
-						<spring:input           type="text" class="form-control" path="password" placeholder="Password" required="required"/>
+						<spring:password                     class="form-control" path="password" placeholder="Password" required="required"/>
 					</div>
 				</div>
 
@@ -160,22 +160,27 @@
 				
 				<div class="form-group">
 					<div class="input-group">
-						<span class="input-group-addon"><i class="fa fa-user"></i></span>
+						<span class="input-group-addon"><i class="fa fa-address-card"></i></span>
 						<spring:input           type="text" path="address" class="form-control" placeholder="Address" required="required"/>
 					</div>
 				</div>
 				
 				<div class="form-group">
 					<div class="input-group">
-						<span class="input-group-addon"><i class="fa fa-user"></i></span>
+						<span class="input-group-addon"><i class="fa fa-mobile"></i></span>
 						<spring:input           type="text" path="mobileno" class="form-control" placeholder="Mobile No" required="required"/>
 					</div>
 				</div>
 				
 				<div class="form-group">
 					<div class="input-group">
-						<span class="input-group-addon"><i class="fa fa-user"></i></span>
-						<spring:input           type="text" path="organization.organizationID" class="form-control" placeholder="Organization Id" required="required"/>
+						<span class="input-group-addon"><i class="fa fa-building-o"></i></span>
+						
+						<spring:select type="text" path="organization.organizationID" class="form-control" placeholder="Organization Id" required="required">
+							<c:forEach items="${organizations}" var="org">
+								<option value="${org.organizationID}">${org.organizationName}</option>
+							</c:forEach>
+						</spring:select>
 					</div>
 				</div>
 				

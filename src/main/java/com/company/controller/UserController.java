@@ -49,10 +49,14 @@ public class UserController {
 		
 		System.out.println("userid is " + userid + " and username is " + username);
 		
+		Session session1 = DBConfig.getSession();
+		Query query1=session1.createQuery("from User where userid= :userid");
+		query1.setParameter("userid", Integer.parseInt(userid));
+		User user = (User)query1.getResultList().get(0);;
 		
 		Session session = DBConfig.getSession();
 		Transaction transaction = session.beginTransaction();
-		User user=new User();
+//		User user=new User(); //dont create, user user from three lines before
 		user.setUserid(Integer.parseInt(userid));
 		user.setUsername(username);
 		user.setEmail(email);
