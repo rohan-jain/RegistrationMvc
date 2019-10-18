@@ -34,7 +34,7 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="#">Registration Management System</a>
+      <a class="navbar-brand" href="#">Registration and Home</a>
     </div>
 
     <!-- Collect the nav links, forms, and other content for toggling -->
@@ -49,15 +49,7 @@
         <c:if test="${u!=null}">
             <li><a href="${pageContext.request.contextPath}/logout">Logout</a></li>
         </c:if>
-        
-
       </ul>
-      <form class="navbar-form navbar-left">
-        <div class="form-group">
-          <input type="text" class="form-control" placeholder="Search">
-        </div>
-        <button type="submit" class="btn btn-default">Submit</button>
-      </form>
       
     </div><!-- /.navbar-collapse -->
   </div><!-- /.container-fluid -->

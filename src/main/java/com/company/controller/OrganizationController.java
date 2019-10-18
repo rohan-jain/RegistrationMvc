@@ -2,6 +2,8 @@ package com.company.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.springframework.stereotype.Controller;
@@ -24,8 +26,17 @@ public class OrganizationController {
 	}
 	
 	@RequestMapping("/UserDetailsController")
-	private String getUserDetailsPage(ModelMap map) throws Exception {
-
+	public String getUserDetailsPage(ModelMap map, HttpSession httpSession) throws Exception {
+		
+		if(httpSession==null ||
+				httpSession.getAttribute("u")==null ||
+				((User)httpSession.getAttribute("u")).getUsername()==null) {
+				httpSession.setAttribute("msg", "Please login to access this page");
+				httpSession.setAttribute("pagename", "loginPretty");
+				httpSession.setAttribute("type", "error");
+				return "popup";
+		}
+		
 		Session session = DBConfig.getSession();
 		List<User> users=session.createQuery("from User ").getResultList();
 		map.addAttribute("user",new User());

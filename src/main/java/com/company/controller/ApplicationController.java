@@ -1,5 +1,7 @@
 package com.company.controller;
 
+import javax.servlet.http.HttpSession;
+
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.springframework.stereotype.Controller;
@@ -22,7 +24,7 @@ public class ApplicationController {
 	
 
 	@RequestMapping("/emailController")
-	public String sendEmailToUser(@RequestParam("emailId") String emailId, ModelMap map) throws Exception {
+	public String sendEmailToUser(@RequestParam("emailId") String emailId, ModelMap map, HttpSession httpSession) throws Exception {
 		
 
 		
@@ -40,14 +42,23 @@ public class ApplicationController {
 			email.sendEmail();
 			
 			map.addAttribute("user",new User());
-			return "loginPretty";
+			httpSession.setAttribute("msg", "Password Successfully sent to email");
+			httpSession.setAttribute("pagename", "loginPretty");
+			httpSession.setAttribute("type", "success");
+//			return "loginPretty";
+			return "popup";
 		}
 		else
 		{
-			return "emailReset";
+			httpSession.setAttribute("msg", "Given emailId is not there with us");
+			httpSession.setAttribute("pagename", "forgotPassword");
+			httpSession.setAttribute("type", "error");
+//			return "loginPretty";
+			return "popup";
+//			return "emailReset";
 		}
 		
-//		
+
 //		
 //  		map.addAttribute("user",new User());
 //		return "login";

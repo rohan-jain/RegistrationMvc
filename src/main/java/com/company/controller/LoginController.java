@@ -39,7 +39,6 @@ public class LoginController {
 			httpSession.setAttribute("pagename", "UserDetailsController");
 			httpSession.setAttribute("type", "success");
 			return "popup";
-			
 		}
 		else
 		{	
@@ -57,20 +56,6 @@ public class LoginController {
 		map.addAttribute("user",new User());
 		return "loginPretty";
 	}
-	
-//	@RequestMapping("/login")
-//	public String getLoginPage(ModelMap map) {
-//		map.addAttribute("user",new User());
-//		return "login";
-//	}
-//	
-//	@RequestMapping("/login2")
-//	public String getLoginPage2(ModelMap map) {
-//		map.addAttribute("user",new User());
-//		return "login2";
-//	}
-	
-	
 
 
 	@RequestMapping("/forgotPassword")
@@ -80,14 +65,10 @@ public class LoginController {
 	
 	
 	@RequestMapping("/logout")
-	public String getLoginPagePretty(ModelMap map, HttpSession httpSession) {
+	public String logoutAndShowLoginPage(ModelMap map, HttpSession httpSession) {
 		httpSession.invalidate();
 		map.addAttribute("user",new User());
 		return "loginPretty";
 	}
-	
-
-	
-
 
 }

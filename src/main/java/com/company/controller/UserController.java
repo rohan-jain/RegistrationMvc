@@ -44,7 +44,8 @@ public class UserController {
 		      @RequestParam("email") String email,
 		      @RequestParam("mobileno") String mobileno,
 		      @RequestParam("address") String address,
-		      @RequestParam("organizationId") String organizationId, HttpSession httpSession,
+		      @RequestParam("organizationId") String organizationId,
+		      HttpSession httpSession,
 			ModelMap map) throws Exception {
 		
 		System.out.println("userid is " + userid + " and username is " + username);

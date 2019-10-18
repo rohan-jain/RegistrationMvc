@@ -10,6 +10,8 @@
   function myFunction(clickedId)
   {
     	 document.getElementById(clickedId).contentEditable='true';
+    	 document.getElementById("organizationId" + clickedId).contentEditable='false';
+    	 
          document.getElementById(clickedId).style.backgroundColor="#b3ffcc";
          document.getElementById(clickedId).style.color="black";
          document.getElementById(clickedId).style.border="2px solid black";
@@ -50,7 +52,7 @@
 	font-family: 'Varela Round', sans-serif;
 }
 </style>
-<title>Insert title here</title>
+<title>Home Page</title>
 </head>
 <body bgcolor="">
 
@@ -67,7 +69,7 @@
 				<th>Address</th>
 				<th>OrganizationId</th>
 				<th>Organization</th>
-				<th>Edit|Delete</th>
+				<th>Edit|Update|Delete</th>
 			</tr>
 			
 			<c:forEach items="${users}" var="user">
@@ -80,8 +82,9 @@
 					<td id="organizationId${user.userid}">${user.organization.organizationID}</td>
 					<td id="organizationName${user.userid}">${user.organization.organizationName}</td>
 
-					<td> <button onclick="myPost(${user.userid})"  class="btn" style="background:#19aa8d;color:white"><i class="fa fa-send-o"></i></button>
+					<td> 
 					<button onclick="myFunction(${user.userid})" class="btn btn-primary"><i class="fa fa-edit"></i></button>
+					<button onclick="myPost(${user.userid})"  class="btn" style="background:#19aa8d;color:white"><i class="fa fa-send-o"></i></button>
 					<a href="deletecontroller?userid=${user.userid}" class="btn btn-danger"><i class="fa fa-trash"></i></a>
 					
 				</tr>
@@ -89,7 +92,14 @@
 		</table>
 		</c:if>
 		<c:if test="${u.role=='user'}" >
-			welcome user
+			<div></div>
+			<h2>Welcome ${u.username}</h2>
+			<div></div>
+			<h3>Personal Details</h5>
+			<h4>UserId: ${u.userid}</h4>
+			<h4>Email: ${u.email}</h4>
+			<h4>Address: ${u.address}</h4>
+			<h4>MobileNo: ${u.mobileno}</h4>
 		</c:if>
 	</div>
 
