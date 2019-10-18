@@ -124,6 +124,10 @@
 		display: inline-block;
 		margin: 100px auto;
 	}
+	.error
+	{
+		color:red;
+	}
 </style>
 </head>
 
@@ -140,43 +144,48 @@
 				<div class="form-group">
 					<div class="input-group">
 						<span class="input-group-addon"><i class="fa fa-user"></i></span>
-						<spring:input           type="text" path="username" class="form-control" placeholder="Username" required="required"/>
+						<spring:input           type="text" path="username" class="form-control" placeholder="Username" />
 					</div>
+					<spring:errors path="username" cssClass="error"></spring:errors>
 				</div>
 				
 				<div class="form-group">
 					<div class="input-group">
 						<span class="input-group-addon"><i class="fa fa-lock"></i></span>
-						<spring:password                     class="form-control" path="password" placeholder="Password" required="required"/>
+						<spring:password                     class="form-control" path="password" placeholder="Password"/>
 					</div>
+					<spring:errors path="password" cssClass="error"></spring:errors>
 				</div>
 
 				<div class="form-group">
 					<div class="input-group">
 						<span class="input-group-addon"><i class="fa fa-send-o"></i></span>
-						<spring:input           type="text" path="email" class="form-control" placeholder="EmailId" required="required"/>
+						<spring:input           type="text" path="email" class="form-control" placeholder="EmailId" />
 					</div>
+					<spring:errors path="email" cssClass="error"></spring:errors>
 				</div>
 				
 				<div class="form-group">
 					<div class="input-group">
 						<span class="input-group-addon"><i class="fa fa-address-card"></i></span>
-						<spring:input           type="text" path="address" class="form-control" placeholder="Address" required="required"/>
+						<spring:input           type="text" path="address" class="form-control" placeholder="Address" />
 					</div>
+					<spring:errors path="address" cssClass="error"></spring:errors>
 				</div>
 				
 				<div class="form-group">
 					<div class="input-group">
 						<span class="input-group-addon"><i class="fa fa-mobile"></i></span>
-						<spring:input           type="text" path="mobileno" class="form-control" placeholder="Mobile No" required="required"/>
+						<spring:input           type="text" path="mobileno" class="form-control" placeholder="Mobile No" />
 					</div>
+					<spring:errors path="mobileno" cssClass="error"></spring:errors>
 				</div>
 				
 				<div class="form-group">
 					<div class="input-group">
 						<span class="input-group-addon"><i class="fa fa-building-o"></i></span>
 						
-						<spring:select type="text" path="organization.organizationID" class="form-control" placeholder="Organization Id" required="required">
+						<spring:select type="text" path="organization.organizationID" class="form-control" placeholder="Organization Id" >
 							<c:forEach items="${organizations}" var="org">
 								<option value="${org.organizationID}">${org.organizationName}</option>
 							</c:forEach>

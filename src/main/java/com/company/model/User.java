@@ -7,8 +7,14 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
 
 import org.hibernate.annotations.DynamicUpdate;
+import org.springframework.beans.factory.annotation.Required;
+
+import com.company.validator.UserNameConstraint;
+import com.sun.istack.NotNull;
 
 @Entity
 @Table(name="users")
@@ -18,10 +24,16 @@ public class User {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int userid;
 	@Column
+	@Size(min = 4,message = "Username is invalid")
+	@UserNameConstraint
 	private String username;
+	@Size(min = 7,message = "Email is invalid")
 	private String email;
+	@Size(min=20,message = "Address is invalid")
 	private String address;
+	@Pattern(regexp = "^\\d{10}$",message = "Mobile number is invalid")
 	private String mobileno;
+	@Pattern(regexp = "(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[#$@&_-]).{6,18}",message = "Password is weak")
 	private String password;
 	private String role;
 	
