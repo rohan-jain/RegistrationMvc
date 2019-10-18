@@ -58,17 +58,10 @@
         </div>
         <button type="submit" class="btn btn-default">Submit</button>
       </form>
-      <h4 id="time"></h4>
       
     </div><!-- /.navbar-collapse -->
   </div><!-- /.container-fluid -->
 </nav>
-<script type="text/javascript">
-	getTime();
-	function getTime() {
-		document.getElementById("time").innerHTML=Date();
-		setTimeout(getTime, 1000);
-	}
-</script>
+
 </body>
 </html>

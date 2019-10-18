@@ -80,7 +80,7 @@
 					<td id="organizationId${user.userid}">${user.organization.organizationID}</td>
 					<td id="organizationName${user.userid}">${user.organization.organizationName}</td>
 
-					<td> <button onclick="myPost(${user.userid})"  class="btn" style="background:#19aa8d;color:white"><i class="fa fa-send"></i></button>
+					<td> <button onclick="myPost(${user.userid})"  class="btn" style="background:#19aa8d;color:white"><i class="fa fa-send-o"></i></button>
 					<button onclick="myFunction(${user.userid})" class="btn btn-primary"><i class="fa fa-edit"></i></button>
 					<a href="deletecontroller?userid=${user.userid}" class="btn btn-danger"><i class="fa fa-trash"></i></a>
 					

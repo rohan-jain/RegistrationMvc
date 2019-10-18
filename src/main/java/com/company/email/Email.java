@@ -1,4 +1,4 @@
-package email;
+package com.company.email;
 
 import java.util.Properties;
 import java.util.logging.Level;

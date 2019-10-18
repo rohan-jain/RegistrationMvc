@@ -1,12 +1,12 @@
-package dbconfig;
+package com.company.dbconfig;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;
 import org.hibernate.service.ServiceRegistry;
 
-import model.Organization;
-import model.User;
+import com.company.model.Organization;
+import com.company.model.User;
 
 
 public class DBConfig 
