@@ -4,20 +4,22 @@ import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
-import org.hibernate.Session;
-import org.hibernate.Transaction;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.company.dbconfig.DBConfig;
+import com.company.dao.OrganizationDAO;
+import com.company.dao.UserDAO;
+import com.company.daoimpl.OrganizationDaoImpl;
+import com.company.daoimpl.UserDAOImpl;
 import com.company.model.Organization;
 import com.company.model.User;
 
 @Controller
 public class OrganizationController {
-	
+	UserDAO userDao = new UserDAOImpl();
+	OrganizationDAO organizationDAO = new OrganizationDaoImpl();
 	
 	@RequestMapping("/addorganization")
 	public String getOrganizationPage(ModelMap map) {
@@ -37,8 +39,8 @@ public class OrganizationController {
 				return "popup";
 		}
 		
-		Session session = DBConfig.getSession();
-		List<User> users=session.createQuery("from User ").getResultList();
+
+		List<User> users = userDao.displayUsers();
 		map.addAttribute("user",new User());
 		map.addAttribute("users",users);
 		return "userdetails";
@@ -47,10 +49,7 @@ public class OrganizationController {
 
 	@RequestMapping("/organizatiocontroller")
 	public String registrationControllerPage(@ModelAttribute("organization") Organization organization) throws Exception {
-		Session session = DBConfig.getSession();
-		Transaction transaction = session.beginTransaction();
-		session.save(organization);
-		transaction.commit();
+		organizationDAO.addOrganization(organization);
 		return "redirect:/register";
 	}
 

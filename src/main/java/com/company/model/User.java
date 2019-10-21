@@ -25,11 +25,11 @@ public class User {
 	private int userid;
 	@Column
 	@Size(min = 4,message = "Username is invalid")
-	@UserNameConstraint
+	//@UserNameConstraint
 	private String username;
 	@Size(min = 7,message = "Email is invalid")
 	private String email;
-	@Size(min=20,message = "Address is invalid")
+	@Size(min=5,message = "Address is invalid")
 	private String address;
 	@Pattern(regexp = "^\\d{10}$",message = "Mobile number is invalid")
 	private String mobileno;

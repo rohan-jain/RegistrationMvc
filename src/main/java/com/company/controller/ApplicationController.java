@@ -26,8 +26,6 @@ public class ApplicationController {
 	@RequestMapping("/emailController")
 	public String sendEmailToUser(@RequestParam("emailId") String emailId, ModelMap map, HttpSession httpSession) throws Exception {
 		
-
-		
 		Session session = DBConfig.getSession();
 		Query query=session.createQuery("from User where email=: email");
 		query.setParameter("email", emailId);

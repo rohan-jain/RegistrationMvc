@@ -9,33 +9,31 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.company.dao.UserDAO;
+import com.company.daoimpl.UserDAOImpl;
 import com.company.dbconfig.DBConfig;
 import com.company.model.User;
 
 @Controller
 public class LoginController {
 	
+	UserDAO userDAO=new UserDAOImpl();
+	
 	@RequestMapping("/loginController")
-	public String loginControllerPage(@ModelAttribute("user") User user, HttpSession httpSession, ModelMap map) throws Exception {
-
-		Session session = DBConfig.getSession();
-		Query query=session.createQuery("from User where username= :user and password=: pass");
-		query.setParameter("user", user.getUsername());
-		query.setParameter("pass", user.getPassword());
+	public String loginControllerPage(@ModelAttribute("user") User user, HttpSession httpSession, ModelMap map) throws Exception 
+	{
 		
-		if(!query.getResultList().isEmpty())
-		{	
-			Query q = session.createQuery("from User where username= :user");
-			q.setParameter("user", user.getUsername());
-			User u = (User)q.getResultList().get(0);
+		if(userDAO.displayUserByName(user)!=null)
+		{
+			user=userDAO.displayUserByName(user);
 			
-			httpSession.setAttribute("u", u);
+			httpSession.setAttribute("u", user);
 			httpSession.setMaxInactiveInterval(60*3);
-			System.out.println(u.getRole());
+			System.out.println(user.getRole());
 			System.out.println("test");
 			System.out.println("in list not empty");
 //			return "redirect:/UserDetailsController";
-			httpSession.setAttribute("msg", "Welcome " + u.getUsername());
+			httpSession.setAttribute("msg", "Welcome " + user.getUsername());
 			httpSession.setAttribute("pagename", "UserDetailsController");
 			httpSession.setAttribute("type", "success");
 			return "popup";
