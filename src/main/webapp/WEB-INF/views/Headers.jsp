@@ -34,13 +34,13 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="#">Registration and Home</a>
+      <a class="navbar-brand" href="${pageContext.request.contextPath}/welcome">Registration and Home</a>
     </div>
 
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav">
-        <li class="active"><a href="#">Home <span class="sr-only">(current)</span></a></li>
+        <li class="active"><a href="${pageContext.request.contextPath}/UserDetailsController">Home <span class="sr-only">(current)</span></a></li>
         
         <c:if test="${u==null}">
             <li><a href="${pageContext.request.contextPath}/loginPretty">Login</a></li>
@@ -48,6 +48,10 @@
         </c:if>
         <c:if test="${u!=null}">
             <li><a href="${pageContext.request.contextPath}/logout">Logout</a></li>
+        
+	        <c:if test="${u.role=='admin'}">
+	            <li><a href="${pageContext.request.contextPath}/addorganization">Add Organization</a></li>
+	        </c:if>
         </c:if>
       </ul>
       

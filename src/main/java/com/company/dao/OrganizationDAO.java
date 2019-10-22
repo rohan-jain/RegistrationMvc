@@ -7,5 +7,5 @@ import com.company.model.Organization;
 public interface OrganizationDAO {
 	public boolean addOrganization(Organization organization);
 	public List<Organization> displayOrganizations();
-	
+	public boolean doesOrganizationExist(int organizationId);
 }

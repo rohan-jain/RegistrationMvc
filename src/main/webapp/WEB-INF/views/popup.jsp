@@ -1,4 +1,3 @@
-
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -8,12 +7,13 @@
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
 	integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
 	crossorigin="anonymous"></script>
-<link
-	href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-sweetalert/1.0.1/sweetalert.min.css"
+<link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-sweetalert/1.0.1/sweetalert.min.css"
 	rel="stylesheet" />
 <script
 	src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-sweetalert/1.0.1/sweetalert.min.js"></script>
+
 </head>
+
 <body>
 	<label id="msg" style="display: none">${msg}</label>
 	<label id="pagename" style="display: none">${pagename}</label>
@@ -27,7 +27,8 @@
 				swal({
 					title : "Alert!!!",
 					text : m,
-					type : t
+					type : t,
+					width: '100px'
 				}, function() {
 					window.location = p;
 				});

@@ -12,6 +12,7 @@
 </head>
 <body>
 <jsp:include page="Headers.jsp"></jsp:include>
-welcome to homepage
+<h3>&nbsp&nbsp&nbspWelcome to our Website. Our details are ....</h3>
+ 
 </body>
 </html>

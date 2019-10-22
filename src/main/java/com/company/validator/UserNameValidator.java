@@ -15,9 +15,12 @@ public class UserNameValidator implements ConstraintValidator<UserNameConstraint
 	{
 		User user = new User();
 		user.setUsername(value);
-		if(userDao.displayUserByName(user)==null) {
+		if(userDao.displayUserByName(user)==null)
+		{
 			return true;
-		} else {
+		}
+		else 
+		{
 			return false;
 		}
 	}

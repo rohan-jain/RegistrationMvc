@@ -10,7 +10,8 @@
   function myFunction(clickedId)
   {
     	 document.getElementById(clickedId).contentEditable='true';
-    	 document.getElementById("organizationId" + clickedId).contentEditable='false';
+    	 document.getElementById("organizationName" + clickedId).contentEditable='false';
+    	 document.getElementById("userid" + clickedId).contentEditable='false';
     	 
          document.getElementById(clickedId).style.backgroundColor="#b3ffcc";
          document.getElementById(clickedId).style.color="black";

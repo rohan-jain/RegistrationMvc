@@ -1,6 +1,6 @@
 package com.company.controller;
-
 import java.util.List;
+
 
 import javax.servlet.http.HttpSession;
 
@@ -23,9 +23,21 @@ public class OrganizationController {
 	OrganizationDAO organizationDAO = new OrganizationDaoImpl();
 	
 	@RequestMapping("/addorganization")
-	public String getOrganizationPage(ModelMap map) {
+	public String getOrganizationPage(ModelMap map, HttpSession httpSession) {
+		
+		if(httpSession==null
+				   || httpSession.getAttribute("u")==null
+				   || ((User)httpSession.getAttribute("u")).getUsername()==null) {
+					
+					httpSession.setAttribute("msg", "Please login to access this page");
+					httpSession.setAttribute("pagename", "loginPretty");
+					httpSession.setAttribute("type", "error");
+					return "popup";
+				}
+		
+		
 		map.addAttribute("organization",new Organization());
-		return "addorganization";
+		return "addorganizationPretty";
 	}
 	
 	@RequestMapping("/UserDetailsController")
@@ -50,9 +62,18 @@ public class OrganizationController {
 	
 
 	@RequestMapping("/organizatiocontroller")
-	public String registrationControllerPage(@ModelAttribute("organization") Organization organization) throws Exception {
-		organizationDAO.addOrganization(organization);
-		return "redirect:/register";
+	public String registrationControllerPage(@ModelAttribute("organization") Organization organization, HttpSession httpSession) throws Exception {
+		if(organizationDAO.addOrganization(organization)) {
+			httpSession.setAttribute("msg", "Successfully registered organization");
+			httpSession.setAttribute("pagename", "UserDetailsController");
+			httpSession.setAttribute("type", "success");
+			return "popup";
+		} else {
+			httpSession.setAttribute("msg", "Some issue encountered adding organization");
+			httpSession.setAttribute("pagename", "addorganization");
+			httpSession.setAttribute("type", "error");
+			return "popup";
+		}
 	}
 
 
