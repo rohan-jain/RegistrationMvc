@@ -13,4 +13,6 @@ public interface UserDAO
 	public User displayUserByName(User user);
 	public User displayUserByEmail(User user);
 	public User displayUserById(User user);
+	public boolean isUsernameDuplicate(User user);
+	public boolean isEmailDuplicate(User user);
 }

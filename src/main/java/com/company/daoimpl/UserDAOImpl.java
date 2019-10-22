@@ -49,6 +49,8 @@ public class UserDAOImpl implements UserDAO
 		catch (Exception e)
 		{
 			tx.rollback();
+			System.out.println("qpal error in updateUser");
+			System.out.println(e);
 			System.out.println(e);
 			return false;
 		}
@@ -134,6 +136,58 @@ public class UserDAOImpl implements UserDAO
 		{
 			return null;
 		}
+	}
+
+	@Override
+	public boolean isUsernameDuplicate(User user) {
+		String username = user.getUsername();
+		int userid = user.getUserid();
+		try
+		{
+			session = DBConfig.getSession();
+			Query query=session.createQuery("from User where username= :user");
+			query.setParameter("user", username);
+			List<User> userList = query.getResultList();
+			
+			for(User userToCheck: userList) { // find atleast one user whose id not same as provided user's id
+				if(userToCheck.getUserid() != userid) {
+					return true;
+				}
+			}		
+			return false;
+
+		}
+		catch(Exception e)
+		{
+			return true;
+		}
+//		return false;
+	}
+
+	@Override
+	public boolean isEmailDuplicate(User user) {
+		String email = user.getEmail();
+		int userid = user.getUserid();
+		try
+		{
+			session = DBConfig.getSession();
+			Query query=session.createQuery("from User where email= :email");
+			query.setParameter("email", email);
+			List<User> userList = query.getResultList();
+			
+			for(User userToCheck: userList) { // find atleast one user whose id not same as provided user's id
+				if(userToCheck.getUserid() != userid) {
+					return true;
+				}
+			}		
+			return false;
+
+		}
+		catch(Exception e)
+		{
+			return true;
+		}
+//		return false;
 	}
 
 }

@@ -22,6 +22,10 @@ public class ApplicationController {
 		return "index";
 	}
 	
+	@RequestMapping("/")
+	public String getLoginPage() {
+		return "redirect:/loginPretty";
+	}
 
 	@RequestMapping("/emailController")
 	public String sendEmailToUser(@RequestParam("emailId") String emailId, ModelMap map, HttpSession httpSession) throws Exception {

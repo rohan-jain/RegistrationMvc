@@ -16,6 +16,7 @@ import com.company.daoimpl.UserDAOImpl;
 import com.company.model.Organization;
 import com.company.model.User;
 
+
 @Controller
 public class OrganizationController {
 	UserDAO userDao = new UserDAOImpl();

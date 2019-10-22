@@ -51,6 +51,14 @@
         </c:if>
       </ul>
       
+      
+      
+      <ul class="nav navbar-nav navbar-right">
+        <c:if test="${u!=null}">
+            <li><a href="${pageContext.request.contextPath}/UserDetailsController">Welcome ${u.username}</a></li>
+        </c:if>
+      </ul>
+      
     </div><!-- /.navbar-collapse -->
   </div><!-- /.container-fluid -->
 </nav>

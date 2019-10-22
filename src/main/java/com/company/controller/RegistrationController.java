@@ -9,6 +9,7 @@ import org.hibernate.Session;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -41,20 +42,51 @@ public class RegistrationController {
 	@RequestMapping("/registrationController")
 	public String registrationControllerPage(@Valid @ModelAttribute("user") User user,BindingResult br,HttpSession httpSession,ModelMap map) throws Exception 
 	{
-		if(!br.hasErrors())
-		{
 		try
 		{
-			user.setRole("user");
-			userDAO.addUser(user);
+			if(userDAO.isUsernameDuplicate(user)) {
+				System.out.println("hello some error username dulicate ");
+				br.rejectValue("username", "error.user", "this username taken, please choose another");
+			}
 			
-			Email email=new Email(user.getEmail(), "Registered Successfully!!!", "Welcome to Spring !!!");
-			email.sendEmail();
+			if(userDAO.isEmailDuplicate(user)) {
+				System.out.println("hello some error email duplicate");
+				br.rejectValue("email", "error.user", "this email taken, please choose another");
+			}
 			
-			httpSession.setAttribute("msg", "Registered Successfully");
-			httpSession.setAttribute("pagename", "loginPretty");
-			httpSession.setAttribute("type", "success");
-			return "popup";
+			if(!br.hasErrors())
+			{
+	
+					System.out.println("hello some error validations NOT");
+//					ObjectError objErr = new ObjectError("username","Username duplicate NOT");
+//					br.addError(objErr);
+					
+		//			br.addError();
+		//			org.springframework.validation.ObjectError objErr = new ObjectError()
+					user.setRole("user");
+					userDAO.addUser(user);
+					
+					Email email=new Email(user.getEmail(), "Registered Successfully!!!", "Welcome to Spring !!!");
+					email.sendEmail();
+					
+					httpSession.setAttribute("msg", "Registered Successfully");
+					httpSession.setAttribute("pagename", "loginPretty");
+					httpSession.setAttribute("type", "success");
+					return "popup";
+				
+	
+			}
+			else
+			{
+
+	
+				map.addAttribute("user", user);
+				List<Organization> organizations=organizationDAO.displayOrganizations();
+				map.addAttribute("organizations",organizations);
+				
+				return "registrationPretty";
+			}
+
 		}
 		catch (Exception e)
 		{
@@ -63,17 +95,7 @@ public class RegistrationController {
 			httpSession.setAttribute("type", "success");
 			return "popup";
 		}
-		}
-		else
-		{
-			map.addAttribute("user", user);
-			List<Organization> organizations=organizationDAO.displayOrganizations();
-			map.addAttribute("organizations",organizations);
-			
-			return "registrationPretty";
-		}
-
 	}
-	}	
+}	
 	
 
