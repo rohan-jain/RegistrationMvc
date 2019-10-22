@@ -29,10 +29,6 @@ public class LoginController {
 			
 			httpSession.setAttribute("u", user);
 			httpSession.setMaxInactiveInterval(60*3);
-			System.out.println(user.getRole());
-			System.out.println("test");
-			System.out.println("in list not empty");
-//			return "redirect:/UserDetailsController";
 			httpSession.setAttribute("msg", "Welcome " + user.getUsername());
 			httpSession.setAttribute("pagename", "UserDetailsController");
 			httpSession.setAttribute("type", "success");
@@ -44,7 +40,6 @@ public class LoginController {
 			httpSession.setAttribute("msg", "Username or password is incorrect");
 			httpSession.setAttribute("pagename", "loginPretty");
 			httpSession.setAttribute("type", "error");
-//			return "loginPretty";
 			return "popup";
 		}
 	}

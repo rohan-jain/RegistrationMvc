@@ -31,13 +31,14 @@ public class OrganizationController {
 	@RequestMapping("/UserDetailsController")
 	public String getUserDetailsPage(ModelMap map, HttpSession httpSession) throws Exception {
 		
-		if(httpSession==null ||
-				httpSession.getAttribute("u")==null ||
-				((User)httpSession.getAttribute("u")).getUsername()==null) {
-				httpSession.setAttribute("msg", "Please login to access this page");
-				httpSession.setAttribute("pagename", "loginPretty");
-				httpSession.setAttribute("type", "error");
-				return "popup";
+		if(httpSession==null
+		   || httpSession.getAttribute("u")==null
+		   || ((User)httpSession.getAttribute("u")).getUsername()==null) {
+			
+			httpSession.setAttribute("msg", "Please login to access this page");
+			httpSession.setAttribute("pagename", "loginPretty");
+			httpSession.setAttribute("type", "error");
+			return "popup";
 		}
 		
 

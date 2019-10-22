@@ -45,28 +45,20 @@ public class RegistrationController {
 		try
 		{
 			if(userDAO.isUsernameDuplicate(user)) {
-				System.out.println("hello some error username dulicate ");
 				br.rejectValue("username", "error.user", "this username taken, please choose another");
 			}
 			
 			if(userDAO.isEmailDuplicate(user)) {
-				System.out.println("hello some error email duplicate");
 				br.rejectValue("email", "error.user", "this email taken, please choose another");
 			}
 			
 			if(!br.hasErrors())
 			{
 	
-					System.out.println("hello some error validations NOT");
-//					ObjectError objErr = new ObjectError("username","Username duplicate NOT");
-//					br.addError(objErr);
-					
-		//			br.addError();
-		//			org.springframework.validation.ObjectError objErr = new ObjectError()
 					user.setRole("user");
 					userDAO.addUser(user);
 					
-					Email email=new Email(user.getEmail(), "Registered Successfully!!!", "Welcome to Spring !!!");
+					Email email=new Email(user.getEmail(), "Registered Successfully!!!", "Welcome to user management");
 					email.sendEmail();
 					
 					httpSession.setAttribute("msg", "Registered Successfully");
@@ -74,7 +66,6 @@ public class RegistrationController {
 					httpSession.setAttribute("type", "success");
 					return "popup";
 				
-	
 			}
 			else
 			{

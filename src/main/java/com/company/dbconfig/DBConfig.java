@@ -25,9 +25,7 @@ public class DBConfig
 	{
 		try
 		{
-			System.out.println("not successfull");
 			loadSessionFactory();
-			System.out.println("successfull");
 		}
 		catch(Exception e)
 		{

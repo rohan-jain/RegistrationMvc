@@ -24,13 +24,6 @@ public class UserController {
 
 	@RequestMapping("/deletecontroller")
 	public String deleteController(@RequestParam("userid") int userid) throws Exception {
-
-//		Session session = DBConfig.getSession();
-//		Transaction transaction = session.beginTransaction();
-//		User user=new User();
-//		user.setUserid(userid);
-//		session.delete(user);
-//		transaction.commit();
 		
 		User user=new User();
 		user.setUserid(userid);
@@ -48,8 +41,6 @@ public class UserController {
 						      @RequestParam("organizationId") String organizationId,
 						      HttpSession httpSession,
 							  ModelMap map) throws Exception {
-		
-		System.out.println("userid is " + userid + " and username is " + username);
 		
 
 		User user = new User();
@@ -79,9 +70,6 @@ public class UserController {
         	hasErrors = true;
         	errorMessage += "Following errors found in update\n";
             for (ConstraintViolation<User> violation : constraintViolations) {
-            	System.out.println("qpal in validating updateUser");
-                System.out.println(violation.getMessage());
-                System.out.println(violation.getPropertyPath());
                 errorMessage += "\n" + violation.getPropertyPath() + ": " + violation.getMessage();
             }
         }
@@ -90,13 +78,11 @@ public class UserController {
 		if(userDao.isEmailDuplicate(user)) {
 			hasErrors = true;
 			errorMessage += "\nemail: " + "Email duplicate";
-			System.out.println("hello qpal some eemamil duplicate erro");
 		}
 		
 		if(userDao.isUsernameDuplicate(user)) {
 			hasErrors = true;
 			errorMessage += "\nusername: " + "UserName duplicate";
-			System.out.println("hello some error username dulicate ");
 		}
 		
 		
@@ -104,14 +90,12 @@ public class UserController {
 
 		
 		if(!hasErrors) {
-			System.out.println("editing user");
 			map.addAttribute("user",new User());
 			httpSession.setAttribute("msg", "Data Updated Successfully!!!");
 			httpSession.setAttribute("pagename", "UserDetailsController");
 			httpSession.setAttribute("type", "success");
 			return "popup";
 		} else {
-			System.out.println("editing user");
 			map.addAttribute("user",new User());
 			httpSession.setAttribute("msg", errorMessage);
 			httpSession.setAttribute("pagename", "UserDetailsController");

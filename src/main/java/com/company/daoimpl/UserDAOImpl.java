@@ -49,8 +49,6 @@ public class UserDAOImpl implements UserDAO
 		catch (Exception e)
 		{
 			tx.rollback();
-			System.out.println("qpal error in updateUser");
-			System.out.println(e);
 			System.out.println(e);
 			return false;
 		}
@@ -187,7 +185,6 @@ public class UserDAOImpl implements UserDAO
 		{
 			return true;
 		}
-//		return false;
 	}
 
 }
