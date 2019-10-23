@@ -22,11 +22,10 @@ public class LoginController {
 	@RequestMapping("/loginController")
 	public String loginControllerPage(@ModelAttribute("user") User user, HttpSession httpSession, ModelMap map) throws Exception 
 	{
-		
-		if(userDAO.displayUserByName(user)!=null)
+//		User userToCheck = userDAO.displayUserByName(user);
+		if(userDAO.isUserLoginCorrect(user))
 		{
 			user=userDAO.displayUserByName(user);
-			
 			httpSession.setAttribute("u", user);
 			httpSession.setMaxInactiveInterval(60*3);
 			httpSession.setAttribute("msg", "Welcome " + user.getUsername());

@@ -7,11 +7,24 @@
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
 	integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
 	crossorigin="anonymous"></script>
+
+	<!-- 
 <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-sweetalert/1.0.1/sweetalert.min.css"
 	rel="stylesheet" />
 <script
 	src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-sweetalert/1.0.1/sweetalert.min.js"></script>
+	<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+ -->
+ 
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
 
+<style type="text/css">
+
+.half-size {
+	zoom: 0.5;
+}
+
+</style>
 </head>
 
 <body>
@@ -23,19 +36,22 @@
 			var m = $("#msg").text();
 			var p = $("#pagename").text();
 			var t = $("#type").text();
-			setTimeout(function() {
-				swal({
+			
+			Swal.fire({
+					width: 400,
+					position: 'top',
 					title : "Alert!!!",
+					customClass: {
+					    icon: 'half-size'
+					  },
 					text : m,
-					type : t,
-					width: '100px'
-				}, function() {
-					window.location = p;
+					type : t
+				}).then(function() {
+				    window.location = p;
 				});
-			}, 1);
+		
 		});
 	</script>
-
 </body>
 </html>
 

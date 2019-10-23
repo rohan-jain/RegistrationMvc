@@ -35,8 +35,8 @@ public class Organization {
 	public int getOrganizationID() {
 		return organizationID;
 	}
-	public void setOrganizationID(int orgaizationID) {
-		this.organizationID = orgaizationID;
+	public void setOrganizationID(int organizationID) {
+		this.organizationID = organizationID;
 	}
 	public String getOrganizationName() {
 		return organizationName;

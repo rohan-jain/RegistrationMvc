@@ -1,5 +1,6 @@
 package com.company.controller;
 
+import java.util.List;
 import java.util.Set;
 
 import javax.servlet.http.HttpSession;
@@ -97,14 +98,33 @@ public class UserController {
         }
 		
 		
-		if(userDao.isEmailDuplicate(user)) {
-			hasErrors = true;
-			errorMessage += "\nemail: " + "Email duplicate";
+//		if(userDao.isEmailDuplicate(user)) {
+//			hasErrors = true;
+//			errorMessage += "\nemail: " + "Email duplicate";
+//		}
+//		
+//		if(userDao.isUsernameDuplicate(user)) {
+//			hasErrors = true;
+//			errorMessage += "\nusername: " + "UserName duplicate";
+//		}
+//		
+		List<User> userNameOrEmailSame = userDao.getUsersByEmailOrName(user);
+		for(User userToCheck : userNameOrEmailSame) {
+			if(   userToCheck.getUsername().equals(user.getUsername())
+			   && userToCheck.getUserid() != (user.getUserid())) {
+				hasErrors = true;
+				errorMessage += "\nusername: " + "UserName duplicate";
+				break;
+			}
 		}
 		
-		if(userDao.isUsernameDuplicate(user)) {
-			hasErrors = true;
-			errorMessage += "\nusername: " + "UserName duplicate";
+		for(User userToCheck : userNameOrEmailSame) {
+			if(   userToCheck.getEmail().equals(user.getEmail())
+			   && userToCheck.getUserid() != (user.getUserid())) {
+				hasErrors = true;
+				errorMessage += "\nemail: " + "Email duplicate";
+				break;
+			}
 		}
 		
 		if(!organizationDao.doesOrganizationExist(user.getOrganization().getOrganizationID() )) {
@@ -112,7 +132,7 @@ public class UserController {
 			errorMessage += "\norganizationId: " + "Organization ID does not exist";
 		}
 		
-		if(!userDao.updateUser(user)) {
+		if(!hasErrors && !userDao.updateUser(user)) { // update user if no errors
 			hasErrors = true;
 		}
 		

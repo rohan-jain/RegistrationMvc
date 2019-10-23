@@ -29,6 +29,7 @@ public class OrganizationDaoImpl implements OrganizationDAO{
 			return false;
 		}
 	}
+	
 
 	@Override
 	public List<Organization> displayOrganizations() {
@@ -62,21 +63,99 @@ public class OrganizationDaoImpl implements OrganizationDAO{
 		}
 
 	}
+
+	@Override
+	public boolean deleteOrganization(int organizationID) {
+		
+		try
+		{
+			Organization org = new Organization();
+			org.setOrganizationID(organizationID);
+			
+			session = DBConfig.getSession();
+			tx=session.beginTransaction();
+			session.delete(org);
+			tx.commit();
+			return true;
+		}
+		catch (Exception e)
+		{
+			tx.rollback();
+			System.out.println(e);
+			return false;
+		}	
+	}
+
+	@Override
+	public boolean updateOrganization(Organization organization) 
+	{
+		try
+		{
+			session = DBConfig.getSession();
+			tx=session.beginTransaction();
+			session.update(organization);
+			tx.commit();
+			return true;
+		}
+		catch (Exception e)
+		{
+			tx.rollback();
+			System.out.println(e);
+			return false;
+		}
+	}
+
+//
+//	@Override
+//	public boolean doesOrganizationExist() {
+//		// TODO Auto-generated method stub
+//		return false;
+//	}
 	
 //	@Override
-//	public User displayUserByName(User user) 
-//	{
-//		try
-//		{
+//	public boolean isOrganizationNameDuplicate(Organization org) {
+//		try {
 //			session = DBConfig.getSession();
-//			Query query=session.createQuery("from User where username= :user");
-//			query.setParameter("user", user.getUsername());
-//			return (User)query.getResultList().get(0);
+//			Query query=session.createQuery("from Organization where organizationname= :organizationName");
+//			query.setParameter("organizationName", org.getOrganizationName());
+//			
+//			if(!query.getResultList().isEmpty()) {
+//				return true;
+//			} else {
+//				return false;
+//			}	
+//				
+//		} catch (Exception e) {
+//			System.out.println(e);
+//			return false;
 //		}
-//		catch(Exception e)
-//		{
-//			return null;
-//		}
+//
 //	}
+	
+	@Override
+	public boolean isOrganizationNameDuplicate(Organization org) {
+		String orgName = org.getOrganizationName();
+		int orgId = org.getOrganizationID();
+		try
+		{
+			session = DBConfig.getSession();
+			Query query=session.createQuery("from Organization where organizationname= :orgName");
+			query.setParameter("orgName", orgName);
+			List<Organization> orgList = query.getResultList();
+			
+			for(Organization orgToCheck: orgList) { // find atleast one org whose id not same as provided Org's id
+				if(orgToCheck.getOrganizationID() != orgId) {
+					return true;
+				}
+			}		
+			return false;
+
+		}
+		catch(Exception e)
+		{
+			return true;
+		}
+//		return false;
+	}
 	
 }

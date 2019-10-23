@@ -13,6 +13,10 @@ public interface UserDAO
 	public User displayUserByName(User user);
 	public User displayUserByEmail(User user);
 	public User displayUserById(User user);
+	@Deprecated
 	public boolean isUsernameDuplicate(User user);
+	@Deprecated
 	public boolean isEmailDuplicate(User user);
+	public List<User> getUsersByEmailOrName(User user);
+	public boolean isUserLoginCorrect(User user);
 }

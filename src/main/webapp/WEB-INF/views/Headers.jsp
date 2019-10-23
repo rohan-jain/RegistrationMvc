@@ -48,9 +48,9 @@
         </c:if>
         <c:if test="${u!=null}">
             <li><a href="${pageContext.request.contextPath}/logout">Logout</a></li>
-        
 	        <c:if test="${u.role=='admin'}">
 	            <li><a href="${pageContext.request.contextPath}/addorganization">Add Organization</a></li>
+	            <li><a href="${pageContext.request.contextPath}/OrganizationDetailsController">Update Organization</a></li>
 	        </c:if>
         </c:if>
       </ul>

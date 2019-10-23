@@ -159,7 +159,7 @@
 
 				<div class="form-group">
 					<div class="input-group">
-						<span class="input-group-addon"><i class="fa fa-send-o"></i></span>
+						<span class="input-group-addon"><i class="fa fa-envelope"></i></span>
 						<spring:input           type="text" path="email" class="form-control" placeholder="EmailId" />
 					</div>
 					<spring:errors path="email" cssClass="error"></spring:errors>

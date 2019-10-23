@@ -187,4 +187,44 @@ public class UserDAOImpl implements UserDAO
 		}
 	}
 
+	@Override
+	public List<User> getUsersByEmailOrName(User user) {
+		if(user == null) {
+			return null;
+		}
+		
+		try
+		{
+			session = DBConfig.getSession();
+			Query query=session.createQuery("from User where username= :user OR email= :email");
+			query.setParameter("user", user.getUsername());
+			query.setParameter("email", user.getEmail());
+			return query.getResultList();
+		}
+		catch(Exception e)
+		{
+			return null;
+		}
+	}
+
+	@Override
+	public boolean isUserLoginCorrect(User user) {
+		if(user == null) {
+			return false;
+		}
+		
+		try
+		{
+			session = DBConfig.getSession();
+			Query query=session.createQuery("from User where username= :user AND password= :password");
+			query.setParameter("user", user.getUsername());
+			query.setParameter("password", user.getPassword());
+			return !query.getResultList().isEmpty();
+		}
+		catch(Exception e)
+		{
+			return false;
+		}
+	}
+
 }

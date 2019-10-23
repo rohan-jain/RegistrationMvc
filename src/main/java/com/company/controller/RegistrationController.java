@@ -44,12 +44,29 @@ public class RegistrationController {
 	{
 		try
 		{
-			if(userDAO.isUsernameDuplicate(user)) {
-				br.rejectValue("username", "error.user", "this username taken, please choose another");
+//			if(userDAO.isUsernameDuplicate(user)) {
+//				br.rejectValue("username", "error.user", "this username taken, please choose another");
+//			}
+//			
+//			if(userDAO.isEmailDuplicate(user)) {
+//				br.rejectValue("email", "error.user", "this email taken, please choose another");
+//			}
+			
+			List<User> userNameOrEmailSame = userDAO.getUsersByEmailOrName(user);
+			for(User userToCheck : userNameOrEmailSame) {
+				if(   userToCheck.getUsername().equals(user.getUsername())
+				   && userToCheck.getUserid() != (user.getUserid())) {
+					br.rejectValue("username", "error.user", "this username taken, please choose another");
+					break;
+				}
 			}
 			
-			if(userDAO.isEmailDuplicate(user)) {
-				br.rejectValue("email", "error.user", "this email taken, please choose another");
+			for(User userToCheck : userNameOrEmailSame) {
+				if(   userToCheck.getEmail().equals(user.getEmail())
+				   && userToCheck.getUserid() != (user.getUserid())) {
+					br.rejectValue("email", "error.user", "this email taken, please choose another");
+					break;
+				}
 			}
 			
 			if(!br.hasErrors())
