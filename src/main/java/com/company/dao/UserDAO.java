@@ -11,7 +11,7 @@ public interface UserDAO
 	public boolean deleteUser(User user);
 	public List<User> displayUsers();
 	public User displayUserByName(User user);
-	public User displayUserByEmail(User user);
+	public User displayUserByEmail(String emailId);
 	public User displayUserById(User user);
 	@Deprecated
 	public boolean isUsernameDuplicate(User user);

@@ -9,6 +9,8 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.company.dao.UserDAO;
+import com.company.daoimpl.UserDAOImpl;
 import com.company.dbconfig.DBConfig;
 import com.company.email.Email;
 import com.company.model.User;
@@ -16,6 +18,8 @@ import com.company.model.User;
 @Controller
 public class ApplicationController {
 
+	UserDAO userDao = new UserDAOImpl();
+	
 	@RequestMapping("/")
 	public String getLoginPage() {
 		return "redirect:/loginPretty";
@@ -24,13 +28,15 @@ public class ApplicationController {
 	@RequestMapping("/emailController")
 	public String sendEmailToUser(@RequestParam("emailId") String emailId, ModelMap map, HttpSession httpSession) throws Exception {
 		
-		Session session = DBConfig.getSession();
-		Query query=session.createQuery("from User where email=: email");
-		query.setParameter("email", emailId);
+//		Session session = DBConfig.getSession();
+//		Query query=session.createQuery("from User where email=: email");
+//		query.setParameter("email", emailId);
+		User user = userDao.displayUserByEmail(emailId);
 		
-		if(!query.getResultList().isEmpty())
+		
+		if(user != null)
 		{	
-			String password = ((User)query.getResultList().get(0)).getPassword();
+			String password = user.getPassword();
 			Email email=new Email(emailId, "Your password reset successfully", "Your password is " + password);
 			email.sendEmail();
 			

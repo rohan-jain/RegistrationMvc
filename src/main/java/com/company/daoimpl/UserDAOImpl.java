@@ -104,13 +104,16 @@ public class UserDAOImpl implements UserDAO
 	}
 
 	@Override
-	public User displayUserByEmail(User user) 
+	public User displayUserByEmail(String emailId) 
 	{
 		try
 		{
 			session = DBConfig.getSession();
 			Query query=session.createQuery("from User where email= :email");
-			query.setParameter("email", user.getEmail());
+			query.setParameter("email", emailId);
+			if(query.getResultList().isEmpty()) {
+				return null;
+			}
 			return (User)query.getResultList().get(0);
 		}
 		catch(Exception e)
@@ -135,7 +138,8 @@ public class UserDAOImpl implements UserDAO
 			return null;
 		}
 	}
-
+	
+	@Deprecated
 	@Override
 	public boolean isUsernameDuplicate(User user) {
 		String username = user.getUsername();
@@ -162,6 +166,7 @@ public class UserDAOImpl implements UserDAO
 //		return false;
 	}
 
+	@Deprecated
 	@Override
 	public boolean isEmailDuplicate(User user) {
 		String email = user.getEmail();
