@@ -79,7 +79,7 @@ public class UserDAOImpl implements UserDAO
 		try
 		{
 			session = DBConfig.getSession();
-			return (List<User>)session.createQuery("from User").getResultList();
+			return (List<User>)session.createQuery("from User u LEFT JOIN FETCH u.organization").getResultList();
 		}
 		catch(Exception e)
 		{
@@ -87,6 +87,7 @@ public class UserDAOImpl implements UserDAO
 		}
 	}
 
+	@Deprecated
 	@Override
 	public User displayUserByName(User user) 
 	{
@@ -213,22 +214,24 @@ public class UserDAOImpl implements UserDAO
 	}
 
 	@Override
-	public boolean isUserLoginCorrect(User user) {
+	public User getUserByLogin(User user) {
 		if(user == null) {
-			return false;
+			return null;
 		}
-		
 		try
 		{
 			session = DBConfig.getSession();
 			Query query=session.createQuery("from User where username= :user AND password= :password");
 			query.setParameter("user", user.getUsername());
 			query.setParameter("password", user.getPassword());
-			return !query.getResultList().isEmpty();
+			List<User> users = query.getResultList();
+			if(users.isEmpty() || users.size() > 1) // no user OR more than one user with same username/password pair
+				return null;
+			return users.get(0);
 		}
 		catch(Exception e)
 		{
-			return false;
+			return null;
 		}
 	}
 

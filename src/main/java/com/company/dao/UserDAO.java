@@ -10,13 +10,14 @@ public interface UserDAO
 	public boolean updateUser(User user);
 	public boolean deleteUser(User user);
 	public List<User> displayUsers();
+	@Deprecated
 	public User displayUserByName(User user);
 	public User displayUserByEmail(String emailId);
 	public User displayUserById(User user);
-	@Deprecated
+	@Deprecated // replaced by getUsersByEmailOrName for authenticating user for avoiding two db calls.
 	public boolean isUsernameDuplicate(User user);
-	@Deprecated
+	@Deprecated // replaced by getUsersByEmailOrName for authenticating user for avoiding two db calls.
 	public boolean isEmailDuplicate(User user);
 	public List<User> getUsersByEmailOrName(User user);
-	public boolean isUserLoginCorrect(User user);
+	public User getUserByLogin(User user);
 }

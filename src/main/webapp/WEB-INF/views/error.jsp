@@ -8,6 +8,6 @@
 </head>
 <body>
 <jsp:include page="Headers.jsp"></jsp:include>
-error page
+Error Page
 </body>
 </html>

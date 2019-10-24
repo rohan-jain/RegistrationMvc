@@ -101,7 +101,7 @@ public class OrganizationController {
 		
 
 		List<User> users = userDao.displayUsers();
-		map.addAttribute("user",new User());
+//		map.addAttribute("user",new User());
 		map.addAttribute("users",users);
 		return "userdetails";
 	}

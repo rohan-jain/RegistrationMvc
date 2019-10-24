@@ -3,7 +3,10 @@
 
 <html>
 <body>
+<!--  
+#todo uncomment if you want to recover this file into views
 <jsp:include page="Headers.jsp"></jsp:include>
+-->
 <spring:form action="organizatiocontroller" modelAttribute="organization">
 	<table>
 	<tr>

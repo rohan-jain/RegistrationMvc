@@ -3,7 +3,11 @@
 
 <html>
 <body>
+<!--  
+#todo uncomment if you want to recover this file into views
 <jsp:include page="Headers.jsp"></jsp:include>
+-->
+
 <spring:form action="registrationController" modelAttribute="user">
 	<table>
 	<tr>

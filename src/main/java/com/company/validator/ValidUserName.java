@@ -11,6 +11,7 @@ import static java.lang.annotation.ElementType.TYPE;
 import javax.validation.Constraint;
 import javax.validation.Payload;
 
+@Deprecated
 @Target( { TYPE, ANNOTATION_TYPE })
 @Retention(RUNTIME)
 @Constraint(validatedBy = { ValidUserNameValidator.class })

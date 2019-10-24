@@ -7,6 +7,7 @@ import com.company.dao.UserDAO;
 import com.company.daoimpl.UserDAOImpl;
 import com.company.model.User;
 
+@Deprecated
 public class UserNameValidator implements ConstraintValidator<UserNameConstraint, String>
 {
 	UserDAO userDao = new UserDAOImpl();
