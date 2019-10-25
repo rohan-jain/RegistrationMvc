@@ -8,6 +8,7 @@ import javax.validation.Validation;
 import javax.validation.Validator;
 import javax.validation.ValidatorFactory;
 
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -89,17 +90,28 @@ public class OrganizationController {
 	@RequestMapping("/UserDetailsController")
 	public String getUserDetailsPage(ModelMap map, HttpSession httpSession) throws Exception {
 		
-		if(httpSession==null
-		   || httpSession.getAttribute("u")==null
-		   || ((User)httpSession.getAttribute("u")).getUsername()==null) {
-			
-			httpSession.setAttribute("msg", "Please login to access this page");
-			httpSession.setAttribute("pagename", "loginPretty");
-			httpSession.setAttribute("type", "error");
-			return "popup";
-		}
 		
-
+//		if(httpSession==null
+//		   || httpSession.getAttribute("u")==null
+//		   || ((User)httpSession.getAttribute("u")).getUsername()==null) {
+//			
+//			httpSession.setAttribute("msg", "Please login to access this page");
+//			httpSession.setAttribute("pagename", "loginPretty");
+//			httpSession.setAttribute("type", "error");
+//			return "popup";
+//		}
+		
+//		if(((User)httpSession.getAttribute("u")).getRole().equals("user")) {
+//			return "personaldetails";
+//		}
+		org.springframework.security.core.userdetails.User currentUser = (org.springframework.security.core.userdetails.User)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		String username = currentUser.getUsername();
+		
+		User myCurrentUser = new User();
+		myCurrentUser.setUsername(username);
+		myCurrentUser = userDao.displayUserByName(myCurrentUser);
+		httpSession.setAttribute("u", myCurrentUser);
+		
 		List<User> users = userDao.displayUsers();
 //		map.addAttribute("user",new User());
 		map.addAttribute("users",users);

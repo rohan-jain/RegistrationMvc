@@ -1,5 +1,7 @@
 package com.company.model;
 
+import java.io.Serializable;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -22,7 +24,7 @@ import com.sun.istack.NotNull;
 @Entity
 @Table(name="users", uniqueConstraints={@UniqueConstraint(columnNames={"username"})})
 //@ValidUserName
-public class User {
+public class User implements Serializable {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)

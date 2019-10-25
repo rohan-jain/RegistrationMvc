@@ -61,6 +61,7 @@
         <c:if test="${u!=null}">
             <li><a href="${pageContext.request.contextPath}/UserDetailsController">Welcome ${u.username}</a></li>
         </c:if>
+        <h3></h3>
       </ul>
       
     </div><!-- /.navbar-collapse -->
